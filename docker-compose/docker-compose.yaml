@@ -13,6 +13,7 @@ services:
     environment:
       DATALORE_PUBLIC_URL: "https://ist.rest"
       DB_PASSWORD: ${DB_PASSWORD}
+      EMAIL_ALLOWLIST_ENABLED: "true"
   postgresql:
     image: jetbrains/datalore-postgres:2024.4
     expose: [ "5432" ]
