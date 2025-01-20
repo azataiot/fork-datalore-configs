@@ -12,7 +12,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
     environment:
       #DATALORE_PUBLIC_URL: "https://datalore.example.com"
-      DB_PASSWORD: "changeme"
+      DB_PASSWORD: ${DB_PASSWORD}
   postgresql:
     image: jetbrains/datalore-postgres:2024.4
     expose: [ "5432" ]
@@ -21,7 +21,7 @@ services:
     volumes:
       - "postgresql-data:/var/lib/postgresql/data"
     environment:
-      POSTGRES_PASSWORD: "changeme"
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 volumes:
   postgresql-data: { }
   datalore-storage: { }
