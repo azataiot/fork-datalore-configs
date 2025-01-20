@@ -1,12 +1,13 @@
 services:
   datalore:
     image: jetbrains/datalore-server:2024.5
-    ports:
-      - "8080:8080"
+    # ports:
+    #   - "8080:8080"
     expose: [ "8081", "5050", "4060" ]
     networks:
       - datalore-agents-network
       - datalore-backend-network
+      - traefik-public
     volumes:
       - "datalore-storage:/opt/data"
       - "/var/run/docker.sock:/var/run/docker.sock"
@@ -21,6 +22,14 @@ services:
       MAIL_SENDER_EMAIL: "no_reply@ist.rest"
       MAIL_SENDER_NAME: "Datalore TR"
       FORCE_EMAIL_VERIFICATION: "false"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.datalore.entrypoints=websecure
+      - traefik.http.routers.datalore.rule=Host(`ist.rest`)
+      - traefik.http.services.datalore.loadbalancer.server.port=8080
+      - traefik.http.routers.datalore.tls=true
+      - traefik.http.routers.datalore.tls.certresolver=le
+    
   postgresql:
     image: jetbrains/datalore-postgres:2024.4
     expose: [ "5432" ]
@@ -38,3 +47,5 @@ networks:
     name: datalore-agents-network
   datalore-backend-network:
     name: datalore-backend-network
+  traefik-public:
+    external: true
