@@ -11,7 +11,7 @@ services:
       - "datalore-storage:/opt/data"
       - "/var/run/docker.sock:/var/run/docker.sock"
     environment:
-      #DATALORE_PUBLIC_URL: "https://datalore.example.com"
+      DATALORE_PUBLIC_URL: "https://ist.rest"
       DB_PASSWORD: ${DB_PASSWORD}
   postgresql:
     image: jetbrains/datalore-postgres:2024.4
