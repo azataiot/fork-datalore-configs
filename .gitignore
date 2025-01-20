@@ -1,0 +1,2 @@
+# Exclude .env environment files to allow users to securely define and manage sensitive variables within them.
+**/*.env
